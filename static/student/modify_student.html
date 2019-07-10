@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑学生信息</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+</head>
+<body>
+<article class="container page-box">
+    <div class="jumbotron">
+        <h1 class="display-4">编辑学生信息</h1>
+        <a href="index.html">返回</a>
+    </div>
+    <form action="/student_op" onsubmit="modify(this);return false;">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">学号</span>
+            </div>
+            <input aria-label="stuId" class="form-control" id="stuId" name="stuId" readonly
+                   type="text">
+        </div>
+        <div class="row">
+            <div class="input-group mb-3 col">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">学生姓名</span>
+                </div>
+                <input aria-label="stuName" class="form-control" id="stuName" name="stuName"
+                       readonly type="text">
+            </div>
+            <div class="input-group mb-3 col">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">专业</span>
+                </div>
+                <select aria-label="profession" class="form-control" id="profession"
+                        name="profession">
+                    <option></option>
+                    <option value="1">计算机控制</option>
+                    <option value="2">网络安全</option>
+                    <option value="3">计算机应用</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-group mb-3 col">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">入学日期</span>
+                </div>
+                <input aria-label="date" class="form-control" id="date" name="date" readonly
+                       type="date">
+            </div>
+            <div class="input-group mb-3 col">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">性别</span>
+                </div>
+                <div class="form-check form-check-inline"><input class="form-check-input" disabled
+                                                                 id="male" name="sex"
+                                                                 type="radio" value="0"><label
+                            class="form-check-label"
+                            for="male">男</label>
+                </div>
+                <div class="form-check form-check-inline"><input class="form-check-input"
+                                                                 disabled id="female"
+                                                                 name="sex" type="radio"
+                                                                 value="1"><label
+                            class="form-check-label" for="female">女</label></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-group mb-3 col">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">身份证号</span>
+                </div>
+                <input aria-label="idNum" class="form-control" id="idNum" name="idNum" readonly
+                       type="text">
+            </div>
+            <div class="input-group mb-3 col">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">总学分</span>
+                </div>
+                <input aria-label="totalScore" class="form-control" id="totalScore"
+                       name="totalScore" readonly
+                       type="text" value="0">
+            </div>
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">其他说明</span>
+            </div>
+            <textarea aria-label="note" class="form-control" id="note" name="note"
+                      readonly></textarea>
+        </div>
+        <div class="form_info middle" id="form_notice"></div>
+        <input type="submit" value="提交">
+    </form>
+</article>
+<script src="/js/main.js"></script>
+<script>
+    onload = () => {
+        fetch(`/student_op/${getQueryStringParameters().stuId}`, {
+            method: 'get'
+        }).then(response => response.json().then(json => {
+            const notice = document.querySelector('#form_notice');
+            if (json.code === 1) {
+                const data = json.data;
+                document.querySelector('#stuId').value = data.stuId;
+                document.querySelector('#stuName').value = data.stuName;
+                document.querySelector('#profession').value = data.profession;
+                document.querySelector('#date').valueAsDate = new Date(data.date);
+                document.querySelectorAll('.form-check-input')[data.sex].checked = true;
+                document.querySelector('#idNum').value = data.idNum;
+                document.querySelector('#totalScore').value = data.totalScore;
+                document.querySelector('#note').value = data.note;
+            } else if (notice) {
+                notice.innerHTML = data.message;
+            }
+        }));
+    };
+</script>
+</body>
+</html>

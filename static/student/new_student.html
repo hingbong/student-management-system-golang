@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加学生信息</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+</head>
+<body>
+<article class="container page-box">
+    <div class="jumbotron">
+        <h1 class="display-4">添加学生</h1>
+        <a href="index.html">返回</a>
+    </div>
+    <form action="/student_op" method="post" onsubmit="send_form(this);return false;">
+        <div class="row">
+            <div class="input-group mb-3 col">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">学生姓名</span>
+                </div>
+                <input aria-label="stuName" class="form-control" id="stuName" name="stuName"
+                       type="text">
+            </div>
+            <div class="input-group mb-3 col">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">专业</span>
+                </div>
+                <select aria-label="profession" class="form-control" id="profession"
+                        name="profession">
+                    <option></option>
+                    <option value="1">计算机控制</option>
+                    <option value="2">网络安全</option>
+                    <option value="3">计算机应用</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-group mb-3 col">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">入学日期</span>
+                </div>
+                <input aria-label="date" class="form-control ui-icon-calendar" id="date" name="date"
+                       type="date">
+            </div>
+            <div class="input-group mb-3 col">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">性别</span>
+                </div>
+                <div class="form-check form-check-inline"><input class="form-check-input"
+                                                                 id="male"
+                                                                 name="sex"
+                                                                 type="radio"
+                                                                 value="0"><label
+                            class="form-check-label"
+                            for="male">男</label></div>
+                <div class="form-check form-check-inline"><input class="form-check-input"
+                                                                 id="female" name="sex"
+                                                                 type="radio"
+                                                                 value="1"><label
+                            class="form-check-label"
+                            for="female">女</label></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-group mb-3 col">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">身份证号</span>
+                </div>
+                <input aria-label="idNum" class="form-control" id="idNum"
+                       name="idNum"
+                       type="text">
+            </div>
+            <div class="input-group mb-3 col">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">其他说明</span>
+                </div>
+                <input aria-label="note" class="form-control" id="note"
+                       name="note" type="text">
+            </div>
+        </div>
+        <div class="form_info middle" id="form_notice"></div>
+        <input type="submit" value="提交">
+    </form>
+</article>
+<script src="/js/main.js"></script>
+</body>
+</html>

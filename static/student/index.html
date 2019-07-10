@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>所有学生信息</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+</head>
+
+<body>
+<nav>
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link" href="new_student.html">添加学生入口</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/index.html">返回首页</a>
+        </li>
+        <li class="nav-item">
+            <form action="/student_op" onsubmit="search(this);return false;">
+                <label for="stuName">学生姓名</label><input id="stuName" name="stuName" type="text">
+                <label for="profession">专业</label><select id="profession" name="profession">
+                    <option></option>
+                    <option value="1">计算机控制</option>
+                    <option value="2">网络安全</option>
+                    <option value="3">计算机应用</option>
+                </select>
+                <input class="btn btn-primary" type="submit" value="提交">
+                <button class="btn btn-primary" onclick="getAll();return false;">重置</button>
+            </form>
+        </li>
+    </ul>
+</nav>
+<article class="container page-box">
+    <table class="table" id="students_info">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">学号</th>
+            <th scope="col">姓名</th>
+            <th scope="col">性别</th>
+            <th scope="col">入学日期</th>
+            <th scope="col">年龄</th>
+            <th scope="col">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</article>
+<script src="/js/main.js"></script>
+<script>
+    onload = (() => getAll());
+    const getAll = () => fetch('/student_op', {method: 'get'}).then(
+        response => response.json().then(json => putData(json)));
+
+    const putData = e => {
+        document.querySelector('tbody').innerHTML = '';
+        let index = 0;
+        e.code === 1 ? e.data.forEach(ele => {
+            document.querySelector('tbody').innerHTML += `
+      <tr id="s${ele.stuId}">
+      <th scope="row">${++index}</th>
+      <td>${ele.stuId}</td>
+      <td>${ele.stuName}</td>
+      <td>${sexArr[ele.sex]}</td>
+      <td>${ele.date}</td>
+      <td>${parseAge(ele.idNum)}</td>
+      <td><div class="btn-group btn-group-sm" role="group"><a onclick="confirm_delete('/student_op/${ele.stuId}')" class="btn btn-secondary">删除</a><a href="modify_student.html?stuId=${ele.stuId}" class="btn btn-secondary">编辑</a></div></td>
+      </tr>
+    `;
+        }) : alert(e.message);
+    };
+</script>
+</body>
+</html>

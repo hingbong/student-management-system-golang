@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加分数信息</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+</head>
+<body>
+<article class="container page-box">
+    <div class="jumbotron">
+        <h1 class="display-4">添加分数</h1>
+        <a href="index.html">返回</a>
+    </div>
+    <form action="/mark_op" method="post" onsubmit="send_form(this);return false;">
+        <div class="row">
+            <div class="input-group mb-3 col">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">学生姓名</span>
+                </div>
+                <select aria-label="stuId" class="form-control" id="stuId"
+                        name="stuId">
+                    <option></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-group mb-3 col">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">课程名称</span>
+                </div>
+                <input aria-label="courseName" class="form-control" id="courseName"
+                       name="courseName" type="text">
+            </div>
+            <div class="input-group mb-3 col">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">平时分数</span>
+                </div>
+                <input aria-label="baseScore" class="form-control" id="baseScore"
+                       name="baseScore" type="text">
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-group mb-3 col">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">考试分数</span>
+                </div>
+                <input aria-label="testScore" class="form-control" id="testScore"
+                       name="testScore" type="text">
+            </div>
+            <div class="input-group mb-3 col">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">其他说明</span>
+                </div>
+                <input aria-label="note" class="form-control" id="note"
+                       name="note" type="text">
+            </div>
+        </div>
+        <div class="form_info middle" id="form_notice"></div>
+        <input type="submit" value="提交">
+    </form>
+</article>
+<script src="/js/main.js"></script>
+<script>
+    onload = () => fetch('/student_op', {
+        method: 'get'
+    }).then(response => response.json().then(json => {
+        const notice = document.querySelector('#form_notice');
+        if (json.code === 1) {
+            json.data.forEach(e => {
+                document.querySelector(
+                    '#stuId').innerHTML += `<option value="${e.stuId}">${e.stuName}</option>`;
+            });
+        } else if (notice) {
+            notice.innerHTML = data.message;
+        }
+    }));
+</script>
+</body>
+</html>

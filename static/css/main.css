@@ -1,0 +1,43 @@
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 5px;
+    padding-right: 5px;
+    max-width: 1200px;
+    box-sizing: content-box;
+}
+
+.jumbotron {
+    padding-bottom: 32px;
+    padding-top: 32px;
+}
+
+.btn {
+    color: white !important;
+}
+
+.form-check-inline {
+    padding-left: 5px;
+}
+
+.header {
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+}
+
+.card {
+    margin: 20px auto;
+    max-width: 500px;
+    text-align: center;
+    font-size: 50px;
+}
+
+.card a {
+    color: white;
+}
+
+nav {
+    margin: 20px auto;
+    max-width: 1200px;
+}

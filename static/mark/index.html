@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>成绩信息</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+</head>
+
+<body>
+<nav>
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link" href="new_mark.html">添加成绩入口</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/index.html">返回首页</a>
+        </li>
+        <li class="nav-item">
+            <form action="/mark_op" onsubmit="search(this);return false;">
+                <label for="stuName">学生姓名</label><input id="stuName" name="stuName" type="text">
+                <label for="addDate">添加日期</label><input id="addDate" name="addDate" type="date">
+                <input class="btn btn-primary" type="submit" value="提交">
+                <button class="btn btn-primary" onclick="getAll();return false;">重置</button>
+            </form>
+        </li>
+    </ul>
+</nav>
+<article class="container page-box">
+    <table class="table" id="stu_mark_info">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">成绩编号</th>
+            <th scope="col">学号</th>
+            <th scope="col">姓名</th>
+            <th scope="col">课程</th>
+            <th scope="col">平时成绩</th>
+            <th scope="col">测验成绩</th>
+            <th scope="col">最终成绩</th>
+            <th scope="col">添加时间</th>
+            <th scope="col">其他</th>
+            <th scope="col">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</article>
+<script src="/js/main.js"></script>
+<script>
+    onload = () => getAll();
+    const getAll = () => fetch('/mark_op', {method: 'get'}).then(
+        response => response.json().then(json => putData(json)));
+
+    const putData = e => {
+        document.querySelector('tbody').innerHTML = '';
+        let index = 0;
+        e.code === 1 ? e.data.forEach(ele => {
+            document.querySelector('tbody').innerHTML += `
+      <tr id="s${ele.markId}">
+        <th scope="row">${++index}</th>
+        <td>${ele.markId}</td>
+        <td>${ele.stuId}</td>
+        <td>${ele.stuName}</td>
+        <td>${ele.courseName}</td>
+        <td>${ele.baseScore}</td>
+        <td>${ele.testScore}</td>
+        <td>${ele.finalScore}</td>
+        <td>${ele.addDate}</td>
+        <td>${ele.note}</td>
+        <td><div class="btn-group btn-group-sm" role="group"><a onclick="confirm_delete('/mark_op/${ele.markId}')" class="btn btn-secondary">删除</a></div></td>
+      </tr>
+      `;
+        }) : alert(e.message);
+    };
+</script>
+</body>
+</html>
