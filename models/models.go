@@ -7,8 +7,8 @@ import (
 
 var DB *gorm.DB
 
-func InitDB() (db *gorm.DB, err error) {
-	db, err = gorm.Open("mysql", "root:root@/sms?charset=utf8&parseTime=True&loc=Local")
+func InitDB() {
+	db, err := gorm.Open("mysql", "root:root@/sms?charset=utf8&parseTime=True&loc=Local")
 	if err == nil {
 		DB = db.LogMode(true)
 		return

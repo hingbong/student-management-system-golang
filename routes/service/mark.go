@@ -36,3 +36,13 @@ func AddMarkPost(c echo.Context) error {
 	tx.Commit()
 	return c.JSON(http.StatusOK, utils.SuccessJson())
 }
+
+func GetAllMarksGet(c echo.Context) error {
+	name := c.FormValue("stuName")
+	date := c.FormValue("addDate")
+	vos, e := entity.GetAllMarkWithStudentsName(name, date)
+	if e != nil {
+		return c.JSON(http.StatusOK, utils.ErrorJsonWithMessage(e.Error()))
+	}
+	return c.JSON(http.StatusOK, utils.SuccessJsonWithData(vos))
+}

@@ -19,6 +19,7 @@ func SetupRouter(s *http.Server) (e *echo.Echo) {
 	e.DELETE("/student_op/:id", service.DeleteStudent)
 
 	e.POST("/mark_op", service.AddMarkPost)
+	e.GET("/mark_op", service.GetAllMarksGet)
 	e.Logger.Fatal(e.StartServer(s))
 	return
 }

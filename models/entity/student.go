@@ -2,7 +2,6 @@ package entity
 
 import (
 	"fmt"
-	"github.com/jinzhu/gorm"
 	"strconv"
 	"system-management-system/main/models"
 	"time"
@@ -53,23 +52,19 @@ func GetStudentByStuId(stuId string) (*Student, error) {
 	if e != nil {
 		return nil, e
 	}
-	e = models.DB.Where("stuid = ?", i).First(&s).Error
+	e = models.DB.First(&s, i).Error
 	return &s, e
 }
 
 func GetAllStudents(name, profession string) (students []*Student, err error) {
 	db := models.DB
 	if name != "" {
-		db = func(this *gorm.DB) *gorm.DB {
-			return this.Where("stuname LIKE ?", "%"+name+"%")
-		}(db)
+		db = db.Where("stuname LIKE ?", "%"+name+"%")
 	}
 	if profession != "" {
 		i, err := strconv.Atoi(profession)
 		if err == nil {
-			db = func(this *gorm.DB) *gorm.DB {
-				return this.Where("profession = ?", i)
-			}(db)
+			db = db.Where("profession = ?", i)
 		}
 	}
 	err = db.Find(&students).Error

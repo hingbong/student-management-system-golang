@@ -8,8 +8,8 @@ import (
 )
 
 func main() {
-	// err is already nil
-	_, _ = models.InitDB()
+	// connect to MYSQL
+	models.InitDB()
 
 	// Listen and Server in 0.0.0.0:8080
 	s := &http.Server{
