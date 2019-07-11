@@ -1,4 +1,4 @@
-package routes
+package utils
 
 type json struct {
 	Code    int         `json:"code"`
@@ -6,21 +6,21 @@ type json struct {
 	Data    interface{} `json:"data,omitempty"`
 }
 
-func errorJson() *json {
+func ErrorJson() *json {
 	j := &json{Code: 0}
 	return j
 }
-func errorJsonWithMessage(message string) *json {
+func ErrorJsonWithMessage(message string) *json {
 	j := &json{Code: 0, Message: message}
 	return j
 }
 
-func successJsonWithData(data interface{}) *json {
+func SuccessJsonWithData(data interface{}) *json {
 	j := &json{Code: 1, Data: data}
 	return j
 }
 
-func successJson() *json {
+func SuccessJson() *json {
 	j := &json{Code: 1}
 	return j
 }
