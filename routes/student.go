@@ -9,6 +9,8 @@ import (
 	"time"
 )
 
+const EMPTY_STRING = ""
+
 func addStudentPost(c echo.Context) error {
 	student := new(models.Student)
 	param := c.FormValue("date")
@@ -37,7 +39,7 @@ func addStudentPost(c echo.Context) error {
 	}
 
 	// check id number
-	students, err := models.GetAllStudents()
+	students, err := models.GetAllStudents(EMPTY_STRING, EMPTY_STRING)
 	if err != nil {
 		fmt.Println(err)
 		return c.JSON(http.StatusOK, errorJsonWithMessage(err.Error()))
@@ -61,7 +63,9 @@ func addStudentPost(c echo.Context) error {
 }
 
 func allStudentsGet(c echo.Context) error {
-	students, err := models.GetAllStudents()
+	name := c.FormValue("stuName")
+	profession := c.FormValue("profession")
+	students, err := models.GetAllStudents(name, profession)
 	if err != nil {
 		fmt.Println(err)
 		return c.JSON(http.StatusOK, errorJsonWithMessage(err.Error()))

@@ -77,8 +77,22 @@ func GetStudentByStuId(stuId string) (*Student, error) {
 	return &s, e
 }
 
-func GetAllStudents() (students []*Student, err error) {
-	err = DB.Find(&students).Error
+func GetAllStudents(name, profession string) (students []*Student, err error) {
+	db := DB
+	if name != "" {
+		db = func(this *gorm.DB) *gorm.DB {
+			return this.Where("stuname like ?", "%"+name+"%")
+		}(db)
+	}
+	if profession != "" {
+		i, err := strconv.Atoi(profession)
+		if err == nil {
+			db = func(this *gorm.DB) *gorm.DB {
+				return this.Where("profession = ?", i)
+			}(db)
+		}
+	}
+	err = db.Find(&students).Error
 	return
 }
 
