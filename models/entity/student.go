@@ -72,11 +72,21 @@ func GetAllStudents(name, profession string) (students []*Student, err error) {
 }
 
 func DeleteStudent(stuId string) error {
-	student, e := GetStudentByStuId(stuId)
+	i, e := strconv.Atoi(stuId)
 	if e != nil {
 		fmt.Println(e)
 		return e
 	}
-	models.DB.Delete(&student)
+	tx := models.DB.Begin()
+	tx.Where("stuid = ?", i).Delete(&Student{})
+	marks := GetMarksByStuId(uint(i))
+	for _, v := range marks {
+		e := DeleteMark(strconv.Itoa(int(v.StuId)))
+		if e != nil {
+			tx.Rollback()
+			return e
+		}
+	}
+	tx.Commit()
 	return nil
 }

@@ -1,6 +1,8 @@
 package entity
 
 import (
+	"fmt"
+	"strconv"
 	"system-management-system/main/models"
 	"time"
 )
@@ -74,4 +76,19 @@ func GetAllMarkWithStudentsName(name, addDate string) ([]*MarkVO, error) {
 		vos = append(vos, &vo)
 	}
 	return vos, nil
+}
+
+func GetMarksByStuId(stuId uint) (marks []*Mark) {
+	models.DB.Where("stuId = ?", stuId).Find(&marks)
+	return
+}
+
+func DeleteMark(markId string) error {
+	i, e := strconv.Atoi(markId)
+	if e != nil {
+		fmt.Println(e)
+		return e
+	}
+	models.DB.Where("markid = ?", i).Delete(&Mark{})
+	return nil
 }

@@ -6,10 +6,6 @@ type json struct {
 	Data    interface{} `json:"data,omitempty"`
 }
 
-func ErrorJson() *json {
-	j := &json{Code: 0}
-	return j
-}
 func ErrorJsonWithMessage(message string) *json {
 	j := &json{Code: 0, Message: message}
 	return j

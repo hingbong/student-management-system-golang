@@ -20,6 +20,7 @@ func SetupRouter(s *http.Server) (e *echo.Echo) {
 
 	e.POST("/mark_op", service.AddMarkPost)
 	e.GET("/mark_op", service.GetAllMarksGet)
+	e.DELETE("/mark_op/:id", service.DeleteMarkDelete)
 	e.Logger.Fatal(e.StartServer(s))
 	return
 }
