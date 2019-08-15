@@ -2,8 +2,8 @@ package entity
 
 import (
 	"fmt"
+	"github.com/hingbong/student-management-system-golang/models"
 	"strconv"
-	"system-management-system/main/models"
 	"time"
 )
 

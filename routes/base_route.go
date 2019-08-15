@@ -1,10 +1,10 @@
 package routes
 
 import (
+	"github.com/hingbong/student-management-system-golang/routes/service"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 	"net/http"
-	"system-management-system/main/routes/service"
 )
 
 func SetupRouter(s *http.Server) (e *echo.Echo) {

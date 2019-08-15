@@ -1,9 +1,9 @@
 package main
 
 import (
+	"github.com/hingbong/student-management-system-golang/models"
+	"github.com/hingbong/student-management-system-golang/routes"
 	"net/http"
-	"system-management-system/main/models"
-	"system-management-system/main/routes"
 	"time"
 )
 

@@ -3,10 +3,10 @@ package service
 import (
 	"fmt"
 	"github.com/afanti-com/utils-go/idCardNo"
+	"github.com/hingbong/student-management-system-golang/models/entity"
+	"github.com/hingbong/student-management-system-golang/utils"
 	"github.com/labstack/echo"
 	"net/http"
-	"system-management-system/main/models/entity"
-	"system-management-system/main/utils"
 	"time"
 )
 
